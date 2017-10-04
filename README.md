@@ -1,6 +1,6 @@
-# WebRTC for Angular 2
+# WebRTC for Angular
 
-This is the home for WebRTC components built on top of Angular 2 by forkIdeas.
+This is the home for WebRTC components built on top of Angular by forkIdeas.
 
 ## Project status
 Angular WebRTC is currently in configuration phase.
@@ -18,7 +18,7 @@ Angular WebRTC is currently in configuration phase.
 | data sharing     |                         Not started |           -  |              - |
 
 ## The goal of Angular WebRTC
-Our goal is to build a set of high-quality WebRTC components built with Angular 2 and TypeScript.
+Our goal is to build a set of high-quality WebRTC components built with Angular and TypeScript.
 
 ## Browser support
 Angular WebRTC is planned to support the most recent two versions of all major browsers which implements WebRTC:
