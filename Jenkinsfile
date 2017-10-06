@@ -8,7 +8,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'ng build'
+        sh 'ng build --target=production --environment=prod'
       }
     }
     stage('Test') {
