@@ -15,7 +15,7 @@ pipeline {
       steps {
         parallel(
           "Chrome": {
-            sh 'ng test --single-run --browsers ChromeHeadless'
+            sh 'ng test --single-run --browsers ChromeHeadless'
             
           },
           "Firefox": {
