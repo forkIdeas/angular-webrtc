@@ -19,7 +19,7 @@ pipeline {
             
           },
           "Firefox": {
-            sh 'ng test --single-run --browsers Firefox'
+            sh 'ng test --single-run --browsers FirefoxHeadless'
             
           },
           "Opera": {
