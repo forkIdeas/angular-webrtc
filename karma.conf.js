@@ -31,6 +31,12 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome', 'Firefox', 'Opera', 'Safari' ],
+    customLaunchers: {
+      FirefoxHeadless: {
+        base: 'Firefox',
+        flags: [ '-headless' ],
+      }
+    },
     singleRun: false
   });
 };
