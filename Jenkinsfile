@@ -25,10 +25,10 @@ pipeline {
         )
       }
     }
-    stage('Package') {
+    stage('Deploy') {
       steps {
-        sh 'ng build'
-        sh 'mv dist /var/www/html/angular-webrtc'
+        sh '''cd dist
+cp -rf * /var/www/tr-decode/'''
       }
     }
   }
