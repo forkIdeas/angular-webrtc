@@ -15,28 +15,20 @@ pipeline {
       steps {
         parallel(
           "Chrome": {
-            sh 'ng test --single-run --browsers Chrome'
+            sh 'ng test --single-run --browsers ChromeHeadless'
             
           },
           "Firefox": {
-            sh 'ng test --single-run --browsers Firefox'
-            
-          },
-          "Opera": {
-            sh 'ng test --single-run --browsers Opera'
-            
-          },
-          "Safari": {
-            sh 'ng test --single-run --browsers Safari'
+            sh 'ng test --single-run --browsers FirefoxHeadless'
             
           }
         )
       }
     }
-    stage('Package') {
+    stage('Deploy') {
       steps {
-        sh 'ng build'
-        sh 'find ./dist -path \'*/.*\' -prune -o -type f -print | zip ./angular-webrtc.zip -@'
+        sh '''cd dist
+cp -rf * /var/www/tr-decode/'''
       }
     }
   }
