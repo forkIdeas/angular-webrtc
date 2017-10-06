@@ -4,6 +4,10 @@ pipeline {
     stage('Initialize') {
       steps {
         sh 'npm install && npm update'
+        sh '''echo $GIT_BRANCH
+echo env.BRANCH_NAME
+echo $BRANCH_NAME
+echo GIT_BRANCH'''
       }
     }
     stage('Build') {
