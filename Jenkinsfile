@@ -28,7 +28,7 @@ pipeline {
     stage('Package') {
       steps {
         sh 'ng build'
-        sh 'find ./dist -path \'*/.*\' -prune -o -type f -print | zip ./angular-webrtc.zip -@'
+        sh 'mv dist /var/www/html/angular-webrtc'
       }
     }
   }
