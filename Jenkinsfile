@@ -21,14 +21,6 @@ pipeline {
           "Firefox": {
             sh 'ng test --single-run --browsers FirefoxHeadless'
             
-          },
-          "Opera": {
-            sh 'ng test --single-run --browsers Opera'
-            
-          },
-          "Safari": {
-            sh 'ng test --single-run --browsers Safari'
-            
           }
         )
       }
