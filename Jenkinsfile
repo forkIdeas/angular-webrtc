@@ -8,8 +8,8 @@ pipeline {
             expression { env.BRANCH_NAME == 'master' }
           }
           steps {
-            sh 'export TARGET=production'
-            sh 'export ENVIRONMENT=prod'
+            sh 'export TARGET="production"'
+            sh 'export ENVIRONMENT="prod"'
             sh 'npm install && npm update'
           }
         }
@@ -18,8 +18,8 @@ pipeline {
             expression { env.BRANCH_NAME == 'develop' }
           }
           steps {
-            sh 'export TARGET=development'
-            sh 'export ENVIRONMENT=dev'
+            sh 'export TARGET="development"'
+            sh 'export ENVIRONMENT="dev"'
             sh 'npm install && npm update'
           }
         }
