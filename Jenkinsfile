@@ -16,19 +16,27 @@ pipeline {
         parallel(
           "Chrome": {
             sh 'ng test --single-run --browsers ChromeHeadless'
-            
           },
           "Firefox": {
             sh 'ng test --single-run --browsers FirefoxHeadless'
-            
           }
         )
       }
     }
-    stage('Deploy') {
+    stage('Staging') {
+      when {
+        expression { env.BRANCH_NAME == 'develop' }
+      }
       steps {
-        sh '''cd dist
-cp -rf * /var/www/tr-decode/'''
+        sh 'cd dist && cp -rf * /var/www/tr-decode/'
+      }
+    }
+    stage('Production') {
+      when {
+        expression { env.BRANCH_NAME == 'master' }
+      }
+      steps {
+        sh 'cd dist && cp -rf * /var/www/tr-decode/'
       }
     }
   }
