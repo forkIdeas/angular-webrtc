@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'ng build --target=env.TARGET --environment=env.BUILDENV'
+        sh 'ng build --target=$TARGET --environment=$BUILDENV'
       }
     }
     stage('Test') {
