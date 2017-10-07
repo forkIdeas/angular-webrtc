@@ -7,9 +7,9 @@ pipeline {
           when {
             expression { env.BRANCH_NAME == 'master' }
           }
+          environment { TARGET = 'production' }
+          environment { BUILDENV = 'prod' }
           steps {
-            environment { TARGET = 'production' }
-            environment { BUILDENV = 'prod' }
             sh 'npm install && npm update'
           }
         }
@@ -17,9 +17,9 @@ pipeline {
           when {
             expression { env.BRANCH_NAME == 'develop' }
           }
+          environment { TARGET = 'development' }
+          environment { BUILDENV = 'dev' }
           steps {
-            environment { TARGET = 'development' }
-            environment { BUILDENV = 'dev' }
             sh 'npm install && npm update'
           }
         }
