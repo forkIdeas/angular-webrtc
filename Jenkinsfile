@@ -3,12 +3,32 @@ pipeline {
   stages {
     stage('Initialize') {
       steps {
+        parallel {
+          stage('master') {
+            when {
+              expression { env.BRANCH_NAME == 'master' }
+            }
+            steps {
+              sh 'export TARGET=production'
+              sh 'export ENVIRONMENT=prod'
+            }
+          }
+          stage('develop') {
+            when {
+              expression { env.BRANCH_NAME == 'develop' }
+            }
+            steps {
+              sh 'export TARGET=development'
+              sh 'export ENVIRONMENT=dev'
+            }
+          }
+        }
         sh 'npm install && npm update'
       }
     }
     stage('Build') {
       steps {
-        sh 'ng build --target=development --environment=dev'
+        sh 'ng build --target=$TARGET --environment=$ENVIRONMENT'
       }
     }
     stage('Test') {
@@ -23,20 +43,26 @@ pipeline {
         )
       }
     }
-    stage('Staging') {
-      when {
-        expression { env.BRANCH_NAME == 'develop' }
-      }
+    stage('Deployment') {
       steps {
-        sh 'cd dist && cp -rf * /var/www/tr-decode/'
-      }
-    }
-    stage('Production') {
-      when {
-        expression { env.BRANCH_NAME == 'master' }
-      }
-      steps {
-        sh 'cd dist && cp -rf * /var/www/tr-decode/'
+        parallel {
+          stage('Staging') {
+            when {
+              expression { env.BRANCH_NAME == 'develop' }
+            }
+            steps {
+              sh 'cd dist && cp -rf * /var/www/tr-decode/'
+            }
+          }
+          stage('Production') {
+            when {
+              expression { env.BRANCH_NAME == 'master' }
+            }
+            steps {
+              sh 'cd dist && cp -rf * /var/www/tr-decode/'
+            }
+          }
+        }
       }
     }
   }
