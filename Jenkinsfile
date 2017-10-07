@@ -43,23 +43,21 @@ pipeline {
       }
     }
     stage('Deployment') {
-      steps {
-        parallel {
-          stage('Staging') {
-            when {
-              expression { env.BRANCH_NAME == 'develop' }
-            }
-            steps {
-              sh 'cd dist && cp -rf * /var/www/tr-decode/'
-            }
+      parallel {
+        stage('Staging') {
+          when {
+            expression { env.BRANCH_NAME == 'develop' }
           }
-          stage('Production') {
-            when {
-              expression { env.BRANCH_NAME == 'master' }
-            }
-            steps {
-              sh 'cd dist && cp -rf * /var/www/tr-decode/'
-            }
+          steps {
+            sh 'cd dist && cp -rf * /var/www/tr-decode/'
+          }
+        }
+        stage('Production') {
+          when {
+            expression { env.BRANCH_NAME == 'master' }
+          }
+          steps {
+            sh 'cd dist && cp -rf * /var/www/tr-decode/'
           }
         }
       }
