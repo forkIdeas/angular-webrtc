@@ -2,28 +2,27 @@ pipeline {
   agent any
   stages {
     stage('Initialize') {
-      steps {
-        parallel {
-          stage('master') {
-            when {
-              expression { env.BRANCH_NAME == 'master' }
-            }
-            steps {
-              sh 'export TARGET=production'
-              sh 'export ENVIRONMENT=prod'
-            }
+      parallel {
+        stage('master') {
+          when {
+            expression { env.BRANCH_NAME == 'master' }
           }
-          stage('develop') {
-            when {
-              expression { env.BRANCH_NAME == 'develop' }
-            }
-            steps {
-              sh 'export TARGET=development'
-              sh 'export ENVIRONMENT=dev'
-            }
+          steps {
+            sh 'export TARGET=production'
+            sh 'export ENVIRONMENT=prod'
+            sh 'npm install && npm update'
           }
         }
-        sh 'npm install && npm update'
+        stage('develop') {
+          when {
+            expression { env.BRANCH_NAME == 'develop' }
+          }
+          steps {
+            sh 'export TARGET=development'
+            sh 'export ENVIRONMENT=dev'
+            sh 'npm install && npm update'
+          }
+        }
       }
     }
     stage('Build') {
