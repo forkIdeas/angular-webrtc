@@ -8,8 +8,8 @@ pipeline {
             expression { env.BRANCH_NAME == 'master' }
           }
           steps {
-            sh 'export TARGET="production"'
-            sh 'export ENVIRONMENT="prod"'
+            environment { TARGET = 'production' }
+            environment { BUILDENV = 'prod' }
             sh 'npm install && npm update'
           }
         }
@@ -18,8 +18,8 @@ pipeline {
             expression { env.BRANCH_NAME == 'develop' }
           }
           steps {
-            sh 'export TARGET="development"'
-            sh 'export ENVIRONMENT="dev"'
+            environment { TARGET = 'development' }
+            environment { BUILDENV = 'dev' }
             sh 'npm install && npm update'
           }
         }
@@ -27,7 +27,7 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh 'ng build --target=$TARGET --environment=$ENVIRONMENT'
+        sh 'ng build --target=env.TARGET --environment=env.BUILDENV'
       }
     }
     stage('Test') {
